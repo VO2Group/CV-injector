@@ -76,6 +76,10 @@ func parse(url string) {
 func main() {
 	configPath := flag.String("config", "config.json", "Path to config file")
 	brand := flag.String("brand", "IT", "Brand (IT, FORCE, DATA, FINANCE)")
+	flag.Usage = func () {
+		fmt.Println("Usage: CV-injector [flags] url...")
+		flag.PrintDefaults()
+	}
 
 	flag.Parse()
 
