@@ -1,27 +1,15 @@
-# CV-injector (GO Version)
+# ForceBatch
 
-Comment compiler:
+Batch to salesforce!
 
 ```
-> mkdir build
-> (cd build && export GOPATH=$PWD)
 > go get github.com/nimajalali/go-force/force
-> go get golang.org/x/net/html
+> go build ForceBatch.go Contact.go
 ```
 
-Et pour finir:
-
 ```
-go build CV-injector.go
-```
-
-Comment utiliser:
-
-```
-> ./CV-injector -h
-Usage: CV-injector [flags] url...
-  -brand string
-    	Brand (IT, FORCE, DATA, FINANCE) (default "IT")
+> ./ForceBatch -h
+Usage: ForceBatch [flags] ...
   -config string
     	Path to config file (default "config.json")
 ```
