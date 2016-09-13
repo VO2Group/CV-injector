@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang=en>
+  <head>
+
+    <meta charset=utf-8>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CVVO2</title>
+
+    <link rel=stylesheet href="https://fonts.googleapis.com/css?family=Teko:400,300">
+
+    <link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css>
+
+  </head>
+  <body>
+
+    <div id=app></div>
+
+    <script src=http://platform.linkedin.com/in.js>
+      api_key: 'secret'
+      onLoad: onload
+      authorize: true
+    </script>
+
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/jsforce/1.7.0/jsforce.min.js></script>
+    <script>
+      jsforce.browser.init({
+        clientId: 'secret',
+        redirectUri: 'url'
+      })
+    </script>
+
+    <script src=build.js></script>
+
+  </body>
+</html>
