@@ -1,8 +1,5 @@
 <template>
   <div>
-    <p>linkedIn :{{linkedin}}</p>
-    <p>SalesForce :{{salesforce}}</p>
-    <p>Connected :{{connected}}</p>
     <button v-if=connected v-on:click=logout>Déconnexion</button>
   </div>
 </template>
@@ -10,7 +7,7 @@
   module.exports = {
     computed: {
       connected: function () {
-        return this.linkedin && this.salesforce
+        return this.linkedin || this.salesforce
       }
     },
     vuex: {

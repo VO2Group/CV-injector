@@ -12,3 +12,7 @@ new Vue({
     return h(App)
   }
 })
+
+jsforce.browser.on('connect', function (conn) {
+  console.log(conn)
+})

@@ -1,7 +1,6 @@
 <template>
   <div v-if=!linkedin>
-    <h2>LinkedIn</h2>
-    <button v-on:click="onLinkedin">Connexion</button>
+    <a v-on:click.prevent=onLinkedin>LinkedIn</a>
   </div>
 </template>
 <script>
@@ -14,7 +13,9 @@
       },
       actions: {
         onLinkedin: function (store) {
-          store.dispatch('onLinkedin', true)
+          IN.User.authorize(function () {
+            store.dispatch('onLinkedin', true)
+          });
         }
       }
     }

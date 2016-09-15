@@ -1,7 +1,7 @@
 <template>
   <div v-if=!salesforce>
     <h2>SalesForce</h2>
-    <button v-on:click=onSalesforce>Connexion</button>
+    <button v-on:click=login>Connexion</button>
   </div>
 </template>
 <script>
@@ -11,11 +11,11 @@
         salesforce: function (state) {
           return state.salesforce
         }
-      },
-      actions: {
-        onSalesforce: function (store) {
-          store.dispatch('onSalesforce', true)
-        }
+      }
+    },
+    methods: {
+      login: function () {
+        jsforce.browser.login()
       }
     }
   }

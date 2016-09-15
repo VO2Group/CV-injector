@@ -2,7 +2,7 @@
   <div>
     <label>Profil linkedIn :</label>
     <input type=text v-model=url v-bind:disabled=!connected>
-    <button v-if=injectable>Injection</button>
+    <button v-if=injectable v-on:click=injection>Injection</button>
   </div>
 </template>
 <script>
@@ -14,7 +14,7 @@
     },
     computed: {
       connected: function () {
-        return this.linkedin && this.salesforce
+        return this.linkedin || this.salesforce
       },
       injectable: function () {
         return this.connected && this.url
@@ -27,7 +27,14 @@
         },
         salesforce: function (state) {
           return state.salesforce
-        },
+        }
+      }
+    },
+    methods: {
+      injection: function (e) {
+        IN.API.Raw("/people/url=" + encodeURIComponent(this.url)).result(function (data) {
+          console.log(data);
+        })
       }
     }
   }
