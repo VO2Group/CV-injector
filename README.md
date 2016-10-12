@@ -1,6 +1,11 @@
 # CV-injector
 
-Injecteur de profils LinkedIn dans SalesForce.
+Injecteur de profils LinkedIn vers SalesForce.
 
-Force.com REST API Developer Guide
-https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/quickstart.htm
+**Attention, ici on fait du "scraping", ce qui est interdit par LinkedIn !!!**
+
+# Utilisation
+
+```
+npm -s run scrap -- https://www.linkedin.com/in/david-tonnaire-a3504819 | node injector.js
+```

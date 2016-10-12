@@ -3,6 +3,7 @@
     "phantomjs-prebuilt": "^2.1.13"
   },
   "scripts": {
-    "start": "phantomjs injector.js"
+    "scrap": "phantomjs scraper.js",
+    "inject": "node injector.js"
   }
 }
