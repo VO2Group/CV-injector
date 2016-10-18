@@ -7,5 +7,5 @@ Injecteur de profils LinkedIn vers SalesForce.
 # Utilisation
 
 ```
-npm -s run scrap -- https://www.linkedin.com/in/david-tonnaire-a3504819 | node injector.js
+npm -s run scrap -- https://www.linkedin.com/in/david-tonnaire-a3504819 | npm run inject
 ```

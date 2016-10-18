@@ -1,9 +1,10 @@
 {
-  "devDependencies": {
-    "phantomjs-prebuilt": "^2.1.13"
-  },
   "scripts": {
     "scrap": "phantomjs scraper.js",
     "inject": "node injector.js"
+  },
+  "dependencies": {
+    "jsforce": "^1.7.0",
+    "phantomjs-prebuilt": "^2.1.13"
   }
 }

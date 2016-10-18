@@ -13,7 +13,7 @@ page.open(system.args[1], function (status) {
         firm: document.querySelector('#topcard > div.profile-card.vcard > div.profile-overview > div > table > tbody > tr:nth-child(1) > td > ol').textContent,
         firms: document.querySelector('#topcard > div.profile-card.vcard > div.profile-overview > div > table > tbody > tr:nth-child(2) > td > ol').textContent.split(', '),
         educations: document.querySelector('#topcard > div.profile-card.vcard > div.profile-overview > div > table > tbody > tr:nth-child(3) > td > ol').textContent,
-        skills: [].slice.call(document.querySelectorAll('.skill')).map(function (s) { return s.textContent }).filter(function (s) { return s != 'Voir + de 12' && s != 'Voir moins' })
+        skills: [].slice.call(document.querySelectorAll('.skill')).map(function (s) { return s.textContent }).filter(function (s) { return !s.startsWith('Voir + de ') && s != 'Voir moins' })
       }
     })
     console.log(JSON.stringify(r))
