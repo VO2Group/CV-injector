@@ -11,6 +11,11 @@ var bot = controller.spawn({
   token: process.env.token
 }).startRTM()
 
+controller.hears(['^bonjour$', '^salut$', '^hello$'], 'direct_message,direct_mention,mention', function (bot, message) {
+  bot.reply(message, 'Bonjour, je suis un spécialiste Salesforce! Que puis je faire pour vous ?')
+  bot.reply(message, 'Je suis capable de créer ou de mettre à jours des contacts Salesforce si vous donnez une url de profil LinkedIn, contactez moi avec: contact <url LinkedIn>')
+})
+
 controller.hears(['contact <https://fr.linkedin.com/in/(.*)>'], 'direct_message,direct_mention,mention', function (bot, message) {
   var data = '',
       url = 'https://fr.linkedin.com/in/' + message.match[1],
@@ -25,7 +30,7 @@ controller.hears(['contact <https://fr.linkedin.com/in/(.*)>'], 'direct_message,
     bot.startConversation(message, function (err, convo) {
       convo.ask("Vous allez créer ou mettre à jour un contact dans Salesforce, à partir de l'url: " + url + ', on continue ?', [
         {
-          pattern: 'oui|o',
+          pattern: 'oui',
           callback: function (response, convo) {
             convo.say('ok on continue, je contacte Salesforce...')
             connection.login(config.username, config.password + config.securitytoken, function (err, res) {
@@ -37,13 +42,13 @@ controller.hears(['contact <https://fr.linkedin.com/in/(.*)>'], 'direct_message,
               else {
                 try {
                   var contact = JSON.parse(data)
-                  connection.query("SELECT Id, Name, Email FROM Contact WHERE Name = '" + contact.profil.firstName + ' ' + contact.profil.lastName + "'", function (err, res) {
+                  connection.query("SELECT Id, Name, Email FROM Contact WHERE Name = '" + contact.name + "'", function (err, res) {
                     if (err) {
                       convo.say('Salesforce ne me répond pas, contactez le support IT')
                       convo.next()
                     }
                     else {
-                      convo.say(JSON.stringify(res.records[0]))
+                      convo.say(JSON.stringify(res))
                       convo.next()
                     }
                   })
@@ -58,7 +63,7 @@ controller.hears(['contact <https://fr.linkedin.com/in/(.*)>'], 'direct_message,
           }
         },
         {
-          pattern: 'non|n',
+          default: true,
           callback: function (response, convo) {
             convo.say("on s'arrête là alors!")
             convo.next()
