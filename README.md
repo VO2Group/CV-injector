@@ -1,11 +1,11 @@
 # CV-injector
 
-Injecteur de profils LinkedIn vers SalesForce.
-
-**Attention, ici on fait du "scraping", ce qui est interdit par LinkedIn !!!**
+A Slack bot to play with Salesforce.
 
 # Utilisation
 
 ```
-npm -s run scrap -- https://www.linkedin.com/in/david-tonnaire-a3504819 | npm run inject
+token=<bot token> node . ./config.json
 ```
+
+[1]: https://howdy.ai/botkit/ "Botkit"

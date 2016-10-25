@@ -1,8 +1,4 @@
 {
-  "scripts": {
-    "bot": "node bot.js",
-    "scrap": "phantomjs scraper.js"
-  },
   "dependencies": {
     "botkit": "^0.4.0",
     "jsforce": "^1.7.0",
