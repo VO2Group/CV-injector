@@ -18,16 +18,32 @@ function stopHere(response, convo) {
 
 function insertContact(profile, connection) {
   return function (response, convo) {
-    convo.say('insert: ' + JSON.stringify(profile))
-    convo.next()
+    connection
+      .sobject('Contact')
+      .create({
+        Name: profile.name
+      },
+      function (err, res) {
+        convo.say('insert: ' + JSON.stringify(err || {}))
+        convo.say('insert: ' + JSON.stringify(res || {}))
+        convo.next()
+      })
   }
 }
 
 function updateContact(profile, connection, contact) {
   return function (response, convo) {
-    convo.say('update: ' + JSON.stringify(contact))
-    convo.say('with: ' + JSON.stringify(profile))
-    convo.next()
+    connection
+      .sobject('Contact')
+      .update({
+        Id: contact.Id,
+        Name: profile.name
+      },
+      function (err, res) {
+        convo.say('update: ' + JSON.stringify(err || {}))
+        convo.say('update: ' + JSON.stringify(res || {}))
+        convo.next()
+      })
   }
 }
 
