@@ -16,7 +16,7 @@ function stopHere(response, convo) {
   convo.next()
 }
 
-function insertContact(profile, connection) {
+function insertContact(profile) {
   return function (response, convo) {
     connection
       .sobject('Contact')
@@ -31,7 +31,7 @@ function insertContact(profile, connection) {
   }
 }
 
-function updateContact(profile, connection, contact) {
+function updateContact(profile, contact) {
   return function (response, convo) {
     connection
       .sobject('Contact')
