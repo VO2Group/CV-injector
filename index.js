@@ -1,13 +1,14 @@
-var Botkit = require('botkit'),
-    linkedinScraper = require('linkedin-scraper2'),
-    jsforce = require('jsforce')
+import { readFileSync } from 'fs'
 
-var config = require(process.argv[2])
+import Botkit from 'botkit'
+import jsforce from 'jsforce'
+import linkedinScraper from 'linkedin-scraper2'
 
-var controller = Botkit.slackbot(),
-    connection = new jsforce.Connection()
+const config = readFileSync(process.argv[2])
+const controller = Botkit.slackbot()
+const connection = new jsforce.Connection()
 
-var bot = controller.spawn({
+const bot = controller.spawn({
   token: process.env.token
 }).startRTM()
 
@@ -33,6 +34,7 @@ function insertContact(profile) {
 
 function updateContact(profile, contact) {
   return function (response, convo) {
+    console.log(contact)
     connection
       .sobject('Contact')
       .update({
@@ -81,7 +83,7 @@ controller.hears(['contact <https://fr.linkedin.com/in/(.*)>'], 'direct_message,
                         convo.ask('Salesforce ne connait pas ' + profile.name + ', voulez vous créer le contact ?', [
                           {
                             pattern: 'oui',
-                            callback: insertContact(profile, connection)
+                            callback: insertContact(profile)
                           },
                           {
                             default: true,
@@ -93,7 +95,7 @@ controller.hears(['contact <https://fr.linkedin.com/in/(.*)>'], 'direct_message,
                         convo.ask('Salesforce connait déjà ' + profile.name + ', voulez vous mettre à jour le contact ?', [
                           {
                             pattern: 'oui',
-                            callback: updateContact(profile, connection, res.records[0])
+                            callback: updateContact(profile, res.records[0])
                           },
                           {
                             default: true,
