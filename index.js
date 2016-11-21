@@ -15,7 +15,10 @@ const bot = controller.spawn({ token }).startRTM()
 const where = ['direct_message', 'direct_mention', 'mention']
 
 controller.hears(['hello', 'hi', 'bonjour', 'salut', 'coucou', 'cc'], where, (bot, message) => {
-  bot.reply(message, 'Bonjour, je suis un spécialiste Salesforce! Que puis je faire pour vous ?')
+  bot.reply(message, `Bonjour,
+que puis je faire pour vous ?
+Je peux creer un contact Salesforce à partir d'un profil linkedIn,
+envoyez moi simplement une url linkedIn.`)
 })
 
 controller.hears(['<https://fr.linkedin.com/in/(.*)>'], where, (bot, message) => {
