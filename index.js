@@ -17,8 +17,8 @@ const where = ['direct_message', 'direct_mention', 'mention']
 controller.hears(['hello', 'hi', 'bonjour', 'salut', 'coucou', 'cc'], where, (bot, message) => {
   bot.reply(message, `Bonjour,
 que puis je faire pour vous ?
-Je peux creer un contact Salesforce à partir d'un profil linkedIn,
-envoyez moi simplement une url linkedIn.`)
+Je peux créer un contact Salesforce à partir d'un profil linkedIn,
+envoyez moi simplement son url.`)
 })
 
 controller.hears(['<https://fr.linkedin.com/in/(.*)>'], where, (bot, message) => {
@@ -26,18 +26,18 @@ controller.hears(['<https://fr.linkedin.com/in/(.*)>'], where, (bot, message) =>
   console.log(url)
   linkedIn(url)
     .then((profile) => {
-      console.log(profile)
+      console.log(`Retrieve linkedIn profile: ${profile}`)
       login(config)
         .then(() => {
           query(profile)
             .then((contacts) => {
-              console.log(contacts)
+              console.log(`Salesforce contacts: ${contacts}`)
               if (contacts.totalSize == 0) {
                 createConvo(bot, message, url, profile)
               }
               else {
                 const contact = contacts.records[0]
-                console.log(contact)
+                console.log(`Salesforce contact: ${contact}`)
                 updateConvo(bot, message, url, contact, profile)
               }
             })
