@@ -2,7 +2,7 @@ import { readFileSync } from 'fs'
 
 import Botkit from 'botkit'
 
-import linkedIn from './lib/linkedin.js'
+import scrap from './lib/linkedin.js'
 import { login, query } from './lib/salesforce.js'
 import { createConvo, updateConvo } from './lib/convo.js'
 
@@ -16,13 +16,13 @@ const where = ['direct_message', 'direct_mention', 'mention']
 
 controller.hears(['hello', 'hi', 'bonjour', 'salut', 'coucou', 'cc'], where, (bot, message) => {
   bot.reply(message, `Bonjour, que puis je faire pour vous ?
-Je peux créer un contact Salesforce à partir d'un profil linkedIn, envoyez moi simplement son url.`)
+Je peux créer un contact Salesforce à partir d'un profil linkedIn, envoyez moi simplement l'url public du profil.`)
 })
 
 controller.hears(['<https://fr.linkedin.com/in/(.*)>'], where, (bot, message) => {
   const url = `https://fr.linkedin.com/in/${message.match[1]}`
   console.log(url)
-  linkedIn(url)
+  scrap(url)
     .then((profile) => {
       console.log(`Retrieve linkedIn profile: ${profile}`)
       login(config)
