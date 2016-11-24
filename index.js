@@ -1,12 +1,9 @@
-import { readFileSync } from 'fs'
+const Botkit = require('botkit')
+const LinkedIn = require('./lib/linkedin.js')
+const Salesforce = require('./lib/salesforce.js')
+const Convos = require('./lib/convos.js')
 
-import Botkit from 'botkit'
-
-import scrap from './lib/linkedin.js'
-import { login, query } from './lib/salesforce.js'
-import { createConvo, updateConvo } from './lib/convo.js'
-
-const config = JSON.parse(readFileSync(process.argv[2]))
+const config = require(process.argv[2])
 const token =  process.env.TOKEN
 
 const controller = Botkit.slackbot()
@@ -22,21 +19,21 @@ Je peux créer un contact Salesforce à partir d'un profil linkedIn, envoyez moi
 controller.hears(['<https://fr.linkedin.com/in/(.*)>'], where, (bot, message) => {
   const url = `https://fr.linkedin.com/in/${message.match[1]}`
   console.log(url)
-  scrap(url)
+  LinkedIn(url)
     .then((profile) => {
       console.log(`Retrieve linkedIn profile: ${profile}`)
-      login(config)
+      Salesforce.login(config)
         .then(() => {
-          query(profile)
+          Salesforce.query(profile)
             .then((contacts) => {
               console.log(`Salesforce contacts: ${contacts}`)
               if (contacts.totalSize == 0) {
-                createConvo(bot, message, url, profile)
+                Convos.startCreateConvo(bot, message, url, profile)
               }
               else {
                 const contact = contacts.records[0]
                 console.log(`Salesforce contact: ${contact}`)
-                updateConvo(bot, message, url, contact, profile)
+                Convos.startUpdateConvo(bot, message, url, contact, profile)
               }
             })
             .catch((err) => {
