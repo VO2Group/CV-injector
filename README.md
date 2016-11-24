@@ -35,7 +35,7 @@ This bot uses [JSforce][2] library to perform actions in your sweet Salesforce.
 Use this command to launch your bot eternally:
 
 ```
-nohup TOKEN=<bot token> npm start -- ../config.json >./bot.log 2>&1 &
+TOKEN=<bot token> nohup npm start -- ../config.json >./bot.log 2>&1 &
 ```
 
 [1]: https://howdy.ai/botkit/ "Botkit"
