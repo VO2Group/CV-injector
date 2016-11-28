@@ -1,7 +1,4 @@
 {
-  "scripts": {
-    "start": "node ."
-  },
   "dependencies": {
     "botkit": "^0.4.0",
     "jsforce": "^1.7.0",
