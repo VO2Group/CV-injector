@@ -1,7 +1,7 @@
 const Botkit = require('botkit')
-const LinkedIn = require('./lib/linkedin.js')
-const Salesforce = require('./lib/salesforce.js')
-const Convos = require('./lib/convos.js')
+const linkedIn = require('./lib/linkedin.js')
+const {login, query} = require('./lib/salesforce.js')
+const {startCreateConvo, startUpdateConvo} = require('./lib/convos.js')
 
 const config = require(process.argv[2])
 const token =  process.env.TOKEN
@@ -16,24 +16,23 @@ controller.hears(['hello', 'hi', 'bonjour', 'salut', 'coucou', 'cc'], where, (bo
 Je peux créer un contact Salesforce à partir d'un profil linkedIn, envoyez moi simplement l'url public du profil.`)
 })
 
-controller.hears(['<https://fr.linkedin.com/in/(.*)>'], where, (bot, message) => {
-  const url = `https://fr.linkedin.com/in/${message.match[1]}`
-  console.log(url)
-  LinkedIn(url)
+controller.hears(['<https://(.*).linkedin.com/in/(.*)>'], where, (bot, message) => {
+  const url = `https://www.linkedin.com/in/${message.match[2]}`
+  console.log('Bot hears this url:', url)
+  linkedIn(url)
     .then((profile) => {
-      console.log(`Retrieve linkedIn profile: ${profile}`)
-      Salesforce.login(config)
+      console.log('Bot retrieves this linkedIn profile:', profile)
+      login(config)
         .then(() => {
-          Salesforce.query(profile)
+          query(profile)
             .then((contacts) => {
-              console.log(`Salesforce contacts: ${contacts}`)
+              console.log('Bot retreives these Salesforce contacts:', contacts)
               if (contacts.totalSize == 0) {
-                Convos.startCreateConvo(bot, message, url, profile)
+                startCreateConvo(bot, message, url, profile)
               }
               else {
                 const contact = contacts.records[0]
-                console.log(`Salesforce contact: ${contact}`)
-                Convos.startUpdateConvo(bot, message, url, contact, profile)
+                startUpdateConvo(bot, message, url, contact, profile)
               }
             })
             .catch((err) => {

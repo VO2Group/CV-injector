@@ -5,6 +5,8 @@
   "dependencies": {
     "botkit": "^0.4.0",
     "jsforce": "^1.7.0",
-    "linkedin-scraper2": "^2.0.0"
+    "request-x-ray": "^0.1.4",
+    "user-agent-string-generator": "0.0.2",
+    "x-ray": "^2.3.1"
   }
 }
