@@ -7,7 +7,7 @@ const config = require(process.argv[2])
 const token =  process.env.TOKEN
 
 const controller = Botkit.slackbot()
-const bot = controller.spawn({ token }).startRTM()
+const bot = controller.spawn({token}).startRTM()
 
 const where = ['direct_message', 'direct_mention', 'mention']
 
