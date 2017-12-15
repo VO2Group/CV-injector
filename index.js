@@ -1,6 +1,6 @@
 const Botkit = require('botkit')
 const linkedIn = require('./lib/linkedin.js')
-const {login, query} = require('./lib/salesforce.js')
+const {init, login, query} = require('./lib/salesforce.js')
 const {startCreateConvo, startUpdateConvo} = require('./lib/convos.js')
 
 const config = require(process.argv[2])
@@ -10,6 +10,9 @@ const controller = Botkit.slackbot()
 const bot = controller.spawn({token}).startRTM()
 
 const where = ['direct_message', 'direct_mention', 'mention']
+
+console.log('Initialize Salesforce connexion');
+init(config)
 
 controller.hears(['hello', 'hi', 'bonjour', 'salut', 'coucou', 'cc'], where, (bot, message) => {
   bot.reply(message, `Bonjour, que puis je faire pour vous ?
